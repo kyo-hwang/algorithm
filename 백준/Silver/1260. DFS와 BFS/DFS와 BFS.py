@@ -16,7 +16,7 @@ visited = [False for _ in range(vN)]
 
 def dfs(v):
     visited[v] = True
-    print(v+1)
+    print(v+1,end =" ")
     for w in range(vN):
         # print(w,"sdca")
         if graph[v][w] == 1 and not visited[w]:
@@ -53,7 +53,7 @@ def bfs(v):
 
 # dfs(sV-1)
 visited = [False for _ in range(vN)]
-dfsNotRecur(sV-1)
+dfs(sV-1)
 print()
 visited = [False for _ in range(vN)]
 bfs(sV-1)
