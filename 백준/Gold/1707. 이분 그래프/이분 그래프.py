@@ -17,6 +17,8 @@ def dfs(v,parent,depth):
     where[v] = depth%2
 
     for w in graph[v]:
+        if answer == "NO":
+            return
         if not visited[w]:
             dfs(w,v,depth+1)
         elif visited[w]:
@@ -24,6 +26,7 @@ def dfs(v,parent,depth):
                 #같은 홀수 또는 짝수인지
                 if where[v] == where[w]:
                     answer = "NO"
+                    return
 
 for _ in range(tN):
     vN,eN = (int(c) for c in sys.stdin.readline().split())
