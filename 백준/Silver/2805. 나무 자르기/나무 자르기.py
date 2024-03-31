@@ -1,67 +1,62 @@
 #https://www.acmicpc.net/problem/2805
-
 import sys
 # sys.stdin = open("input.txt","r")
-
-plan = sys.stdin.readline().rstrip().split(" ")
-numOfTree = int(plan[0])
-treeLen = int(plan[1])
-
+#나무의 개수, 가져갈 나무 양
+treeN,wAmount = map(int,sys.stdin.readline().rstrip().split())
+#나무의 높이들
 heights = [int(height) for height in sys.stdin.readline().rstrip().split(" ")]
 
-heights.sort()
 
-def getMinBig(numToFind,heights):
-    left = 0
-    right = len(heights)-1
-
-    while right>left:
-        # print(right)
-        mid = (left+right)//2
-        # print(mid)
-
-        if heights[mid] == numToFind:
-            return mid
-        
-        elif heights[mid] < numToFind:
-            left = mid+1
-
-        elif heights[mid] > numToFind:
-            right = mid
-
-    
-    return left
-
-
-def check(treeHeights,cutHeight):
-    sumHeight =0
+#나무의 길이를 잘라서 가져갈 수 있는 양을 구한다.
+def calAmount(treeHeights,cutHeight):
+    amount =0
     for treeHeight in treeHeights:
         if treeHeight > cutHeight:
-            sumHeight += (treeHeight-cutHeight)
+            amount += (treeHeight-cutHeight)
+    return amount
 
-    return sumHeight
+heights.sort()
+fromSum = [heights[0]]
+for i in range(1,len(heights)):
+    fromSum.append(heights[i]+fromSum[i-1])
 
-
-def binarySearch(m,heights):
+def calAmountRapidly(treeHeights,fromSum,cutHeight):
     left = 0
-    right = heights[-1]
-
-    while left <= right:
-        #mid는 현재 자를 높이
+    right = len(treeHeights)-1
+    
+    #톱의 높이보다 높은 나무 중 최소 값은 left
+    while left<=right:
         mid = (left+right)//2
-        # print("mid",mid)
-        #자를 수 있는 나무의 시작 위치를 찾음
-        currM = check(heights,mid)
-
-        if currM == m:
-            return mid
-        #중간으로 두고 자르고 남은 길이가 원하는 길이 보다 작으면 더 아래에서 잘라야지
-        elif currM < m :
-            right = mid-1
-        elif currM > m:
+        if cutHeight == treeHeights[mid]:
+            left = mid
+            break
+        elif cutHeight > treeHeights[mid]:
             left = mid+1
+        elif cutHeight < treeHeights[mid]:
+            right = mid-1
 
+    if left==0:
+        result = fromSum[-1] - (len(treeHeights)-left)*cutHeight
+    else:
+        result = fromSum[-1] - fromSum[left-1] -(len(treeHeights)-left)*cutHeight
+    return result
 
-    return right
+def binarySearch(wAmount,heights):
+    bottom = 0
+    ceiling = heights[-1]
 
-print(binarySearch(treeLen,heights))
+    while ceiling >= bottom:
+        cutHeight = (bottom + ceiling)//2
+        amount = calAmountRapidly(heights,fromSum,cutHeight)
+        # print(amount)
+
+        if amount == wAmount:
+            return cutHeight
+        elif amount < wAmount :
+            ceiling = cutHeight-1 
+        elif amount > wAmount:
+            bottom = cutHeight+1
+
+    return ceiling
+# print(fromSum)
+print(binarySearch(wAmount,heights))
