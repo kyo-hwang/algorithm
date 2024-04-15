@@ -26,14 +26,16 @@ def findNear(x):
             if right < 0:
                 return 0
 
-    if (gunLoc[left]-x) > (gunLoc[right]-x):
+    if abs(gunLoc[left]-x) < abs(gunLoc[right]-x):
         return left
     else :
         return right
+# print(gunLoc)
 
 result = 0
 for x,y in aL:
     aniDis = abs(x-gunLoc[findNear(x)])+y
+    # print(x,y,gunLoc[findNear(x)])
     if aniDis <= distance:
         result += 1
 
