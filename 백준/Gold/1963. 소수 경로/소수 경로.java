@@ -46,13 +46,6 @@ public class Main {
             graph.add(low);
         }
     }
-    public static List<List<Integer>> getGraph(){
-        List<List<Integer>> duGraph = new ArrayList<>();
-        for(int i=0;i<10000;i++){
-            duGraph.add(new ArrayList<>(graph.get(i)));
-        }
-        return duGraph;
-    }
 
     public static int bfs(int src,int dst){
         if(src==dst){
