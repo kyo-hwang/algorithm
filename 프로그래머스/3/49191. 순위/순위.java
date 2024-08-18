@@ -14,7 +14,7 @@ class Solution {
                     continue;
                 }
                 for(int k=1;k<n+1;k++){
-                    if(k==i){
+                    if(k==i||j==k){
                         continue;
                     }
                     dp[j][k] = dp[j][k]||(dp[j][i]&&dp[i][k]);
@@ -23,9 +23,6 @@ class Solution {
         }
         
         int answer=0;
-        // for(int i=0;i<n+1;i++){
-        //     System.out.println(Arrays.toString(dp[i]));
-        // }
         
         int sum = 0;
         for(int i=1;i<n+1;i++){
@@ -35,11 +32,9 @@ class Solution {
             for(int j=1;j<n+1;j++){
                 if(dp[j][i]) sum++;
             }
-            // System.out.println(sum);
             if(sum==n-1) answer++;
             sum = 0;
         }
-        // System.out.println(answer);
         return answer;
     }
 }
