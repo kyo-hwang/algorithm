@@ -1,4 +1,6 @@
 import sys
+sys.setrecursionlimit(1000000)
+
 # sys.stdin = open("input.txt","r")
 
 n = int(sys.stdin.readline())
