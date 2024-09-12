@@ -24,9 +24,7 @@ public class Main{
             board[i][0] = Integer.MAX_VALUE;
             board[i][n+1] = Integer.MAX_VALUE;
             int[] row = Arrays.stream(bf.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            for(int j=1;j<n+1;j++){
-                board[i][j] = row[j-1];
-            }
+            System.arraycopy(row,0,board[i],1,n);
         }
 
         back(board,0);
@@ -37,9 +35,6 @@ public class Main{
 
     public static void back(int[][] board,int depth){
         if(depth==5){
-//            for(int i=0;i<n+2;i++){
-//                System.out.println(Arrays.toString(board[i]));
-//            }
             for(int i=1;i<n+1;i++){
                 for(int j=1;j<n+1;j++){
                     max = Math.max(board[i][j],max);
@@ -185,9 +180,7 @@ public class Main{
         int[][] newBoard = new int[n+2][n+2];
 
         for(int i=0;i<n+2;i++){
-            for(int j=0;j<n+2;j++){
-                newBoard[i][j] = board[i][j];
-            }
+            System.arraycopy(board[i], 0, newBoard[i], 0, n + 2);
         }
 
         return newBoard;
