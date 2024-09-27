@@ -47,9 +47,9 @@ public class Main{
         if(dockingPlace==0){
             return -1;
         }
-        int nextDockingPlace = find(dockingPlace-1);
+//        int nextDockingPlace = find(dockingPlace-1);
 //        System.out.println("next "+nextDockingPlace);
-        parent[dockingPlace] = nextDockingPlace;
-        return nextDockingPlace;
+        parent[dockingPlace] = dockingPlace-1;
+        return dockingPlace-1;
     }
 }
