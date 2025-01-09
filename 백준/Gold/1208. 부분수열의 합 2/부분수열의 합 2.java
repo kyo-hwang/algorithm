@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main{
+public class Main {
     public static void main(String[] args) throws Exception{
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int[] input = Arrays.stream(bf.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -20,7 +20,6 @@ public class Main{
         List<Integer> rightAllSubSum = new ArrayList<>();
         getAllPossibleSubSum(0,0,left,leftAllSubSum);
         getAllPossibleSubSum(0,0,right,rightAllSubSum);
-        leftAllSubSum.sort((e1,e2)->e1-e2);
         rightAllSubSum.sort((e1,e2)->e1-e2);
 
         long count = 0;
