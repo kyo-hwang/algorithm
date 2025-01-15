@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class Main{
+public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int[] input = Arrays.stream(bf.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -31,27 +31,25 @@ public class Main{
             return -1;
         });
 
-//        for(int i=0;i<n;i++){
-//            System.out.println(Arrays.toString(postInfo[i]));
-//        }
 
         int result = 0;
         for(int i=0;i<n;){
             int curDestination = postInfo[i][1];
-            int curVolume = 0;
+
             for(int j=i;j<n;j++){
                 if(postInfo[j][1]!=curDestination){
                     break;
                 }
                 int addVolume = Math.min(postInfo[i][2],remain[postInfo[i][0]]);
-                addVolume = Math.min(truckVolume-curVolume,addVolume);
-                curVolume+=addVolume;
+                for(int k=postInfo[i][0];k<postInfo[j][1];k++){
+                    remain[k] -= addVolume;
+                }
+                for(int k=postInfo[i][0]-1;k>=0;k--){
+                    remain[k] = Math.min(remain[k],remain[k+1]);
+                }
+                result+=addVolume;
                 i++;
             }
-            for(int j=curDestination-1;j>=0;j--){
-                remain[j] = Math.max(0,remain[j]-curVolume);
-            }
-            result+=curVolume;
         }
 
         System.out.println(result);
