@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.*;
 
-public class Main{
+public class Main {
     public static class Route {
         int destination;
         int length;
@@ -66,12 +68,16 @@ public class Main{
             }
 
         }
-        
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         for(int i=0;i<interCount;i++){
             for(int j=0;j<interCount;j++){
-                System.out.print(firstInter[i][j]+" ");
+                bw.write(firstInter[i][j]+" ");
             }
-            System.out.println();
+            bw.write("\n");
         }
+        bw.flush();
+        bw.close();
     }
 }
