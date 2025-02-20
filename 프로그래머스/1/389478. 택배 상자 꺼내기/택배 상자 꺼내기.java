@@ -2,46 +2,16 @@ import java.util.*;
 class Solution {
     public int solution(int n, int w, int num) {
         int answer = 0;
-        List<Deque<Integer>> allBox = new ArrayList<>();
-        for(int i=0;i<w;i++){
-            allBox.add(new ArrayDeque<Integer>());
-        }
+        num--;
         
-        boolean isLeft = true;
-        
-        int[] boxLocs = new int[n+1];
-        
-        int boxId=1;
-        while(boxId<=n){
-            if(isLeft){
-                for(int i=0;i<w;i++){
-                    allBox.get(i).push(boxId);
-                    boxLocs[boxId] = i;
-                    boxId++;
-                    if(boxId>n){
-                        break;
-                    }
-                }
-                isLeft = false;
-            }else{
-                for(int i=w-1;i>=0;i--){
-                    allBox.get(i).push(boxId);
-                    boxLocs[boxId] = i;
-                    boxId++;
-                    if(boxId>n){
-                        break;
-                    }
-                }
-                isLeft=true;
-            }
-        }
-        
-        int boxLocWanted = boxLocs[num];
-        
-        while(allBox.get(boxLocWanted).pop()!=num){
+        while(num<=n-1){
+            num=((num/w+1)*w-1-num)*2+1+num;
+            // System.out.println(num);
             answer++;
+            // if(answer>10){
+            //     return answer;
+            // }
         }
-        answer++;
         
         return answer;
     }
