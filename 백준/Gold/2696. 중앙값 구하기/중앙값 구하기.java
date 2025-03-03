@@ -31,12 +31,8 @@ public class Main{
                 bigs.offer(smalls.poll());
                 result.append(bigs.peek()+" ");
             }else{
-                if(bigs.peek()<=numLine[i]){
-                    bigs.offer(numLine[i]);
-                    smalls.offer(bigs.poll());
-                }else{
-                    smalls.offer(numLine[i]);
-                }
+                bigs.offer(numLine[i]);
+                smalls.offer(bigs.poll());
             }
         }
         return result;
